@@ -100,8 +100,8 @@ Check that backup files are not found in the "${image}"
 
 Check if kernel module loading works on "${device_uuid}"
     ${address} =    Get public address of device "${device_uuid}"
-    Wait Until Keyword Succeeds    6x    5s    Load "media" kernel module to device through "${address}"
-    Wait Until Keyword Succeeds    6x    5s    Check if "media" kernel module is loaded through "${address}"
+    Wait Until Keyword Succeeds    6x    5s    Load "ip_set" kernel module to device through "${address}"
+    Wait Until Keyword Succeeds    6x    5s    Check if "ip_set" kernel module is loaded through "${address}"
 
 Run "${image}" on "${application_name}" with delta already enabled
     Add ENV variable "RESIN_SUPERVISOR_DELTA" with value "1" to application "${application_name}"

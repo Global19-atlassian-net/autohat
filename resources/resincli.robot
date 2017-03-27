@@ -72,6 +72,11 @@ Device "${device_uuid}" is offline
     Process ${result}
     Should Contain    ${result.stdout}    false
 
+Device "${device_uuid}" status is "${status}"
+    ${result} =  Run Process    resin device ${device_uuid} | grep STATUS | rev | cut -d ' ' -f 1 | rev     shell=yes
+    Process ${result}
+    Should Contain    ${result.stdout}    ${status}
+
 Device "${device_uuid}" log should contain "${value}"
     ${result} =  Run Process    resin logs ${device_uuid}    shell=yes
     Process ${result}
