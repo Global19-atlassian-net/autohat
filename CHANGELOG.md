@@ -1,6 +1,7 @@
 Change log
 -----------
 
+* 	Add automation/autohat-rack-test.sh to help in testing from jenkins [Praneeth]
 * 	Add flasher.robot [Praneeth]
 * 	Fix Host OS version to be agnostic to keywords appened after the OS version [Praneeth]
 * 	Test case that provides a device to the application that already has delta enabled [Horia]
