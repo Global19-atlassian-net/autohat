@@ -61,6 +61,32 @@ Checking if setting environment variable works
   Check if setting environment variables works on "${application_name}"
 Checking if host OS version of the image is same through resin cli
   Check if host OS version of device "${device_uuid}" is "${os_version}"
+Checking if logs are working correctly
+  Check if service "resin-info@tty1.service" is running using socket "unix\#/tmp/console.sock"
+  ${random} =  Evaluate    random.randint(0, sys.maxint)    modules=random, sys
+  Add ENV variable "RESIN_HOST_LOG_TO_DISPLAY" with value "0" to application "${application_name}"
+  Check if ENV variable "RESIN_HOST_LOG_TO_DISPLAY" with value "0" exists in application "${application_name}"
+  Git clone "${application_repo}" "/tmp/${random}"
+  Git checkout "${application_commit}" "/tmp/${random}"
+  Add console output "Enabling logs..." to "/tmp/${random}"
+  ${last_commit} =    Get the last git commit from "/tmp/${random}"
+  Git checkout "${last_commit}" "/tmp/${random}"
+  Git push "/tmp/${random}" to application "${application_name}"
+  Wait Until Keyword Succeeds    30x    10s    Device "${device_uuid}" log should contain "Enabling logs..."
+  Remove ENV variable "RESIN_HOST_LOG_TO_DISPLAY" from application "${application_name}"
+
+  #${random} =  Evaluate    random.randint(0, sys.maxint)    modules=random, sys
+  #Add ENV variable "RESIN_HOST_LOG_TO_DISPLAY" with value "1" to application "${application_name}"
+  #Check if ENV variable "RESIN_HOST_LOG_TO_DISPLAY" with value "1" exists in application "${application_name}"
+  #Git clone "${application_repo}" "/tmp/${random}"
+  #Git checkout "${application_commit}" "/tmp/${random}"
+  #Add console output "Disabling logs..." to "/tmp/${random}"
+  #${last_commit} =    Get the last git commit from "/tmp/${random}"
+  #Git checkout "${last_commit}" "/tmp/${random}"
+  #Git push "/tmp/${random}" to application "${application_name}"
+  #Wait Until Keyword Succeeds    30x    10s    Device "${device_uuid}" log should contain "Disabling logs..."
+  #Remove ENV variable "RESIN_HOST_LOG_TO_DISPLAY" from application "${application_name}"
+  [Teardown]    Run Keyword    Remove Directory    /tmp/${random}    recursive=True
 Waiting till Qemu is killed or 30 seconds
   Shutdown resin device "${device_uuid}"
   Wait Until Keyword Succeeds    6x    5s    Device "${device_uuid}" is offline
