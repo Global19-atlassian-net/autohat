@@ -1,6 +1,10 @@
 Change log
 -----------
 
+## v0.0.14 - 2019-12-03
+
+* Dockerfile: Use the latest balena-cli version [Heds Simons]
+
 ## v0.0.13 - 2019-11-18
 
 * Add DEBUG on balena sync test [Michael Angelos Simos]
